@@ -2,23 +2,28 @@ import React, { useState, useEffect } from 'react';
 import './SavingsCalculator.css';
 
 function SavingsCalculator() {
+    // Sparade räntor
     const [rates, setRates] = useState([]); 
+    // Initial insättning
     const [deposit, setDeposit] = useState(0);
+    // Antal år att spara
     const [years, setYears] = useState(1);
+    // Sparande med ränta
+    const [result, setResult] = useState(null);
 
+    // När komponenten laddas, hämta räntor
     useEffect(() => {
         fetch("https://developer.sbab.se/sandbox/api/interest-rates/2.1/deposit-rates")
         .then(response => response.json())
         .then(data => {
-            setRates(data);
+            // hämta räntor från det mottagna datat
+            const extractedRates = data.deposit_rates.map(item => item.deposit_rate_components[0].deposit_rate);
+            setRates(extractedRates);
         });
     }, []);
 
-    // Här lagrar vi vårt resultat (sparande med ränta)
-    const [result, setResult] = useState(null);
-
     const handleCalculate = () => {
-        // Exempel: Använd den första räntesatsen för att beräkna (du kan utvidga detta senare)
+        // Använd den första räntesatsen för att beräkna
         const interestRate = rates[0]; 
         const calculatedValue = deposit * (1 + interestRate/100) ** years;
         setResult(calculatedValue);

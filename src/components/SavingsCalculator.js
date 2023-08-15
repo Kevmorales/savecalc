@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './SavingsCalculator.css';
 
 // Här skapar vi vår huvudkomponent
 function SavingsCalculator() {
@@ -15,7 +16,8 @@ function SavingsCalculator() {
 
     return (
         <div>
-            {/* Här kommer vår kalkylator UI */}
+            <h2>SBAB Sparande Kalkylator</h2>
+            {/* Vi kommer att behöva ett formulär här för att ta input från användaren och visa resultatet */}
         </div>
     );
 }
